@@ -10,6 +10,8 @@ require "liquid"
 #
 # The tag uses WCAG contrast ratio math to choose black or white text for the
 # highest-contrast accessible label, with a subtle border on light swatches.
+#
+# The JavaScript function is injected into the page on first use.
 
 module Jekyll
   class ColorCopyTagLiquid < Liquid::Tag
@@ -43,11 +45,53 @@ module Jekyll
       swatch_width = @swatch_width || config['swatch_width'] || 100
       swatch_height = @swatch_height || config['swatch_height'] || 100
 
-      if @type == 'swatch'
-        render_swatch(hex, copied_color, swatch_width, swatch_height)
-      else
-        render_button(hex, copied_color)
+      # Inject the script once per page
+      page = context.registers[:page]
+      script_injected_key = 'color_copy_script_injected'
+      
+      output = ""
+      unless page && page[script_injected_key]
+        output += inject_script(context)
+        page[script_injected_key] = true if page
       end
+
+      if @type == 'swatch'
+        output += render_swatch(hex, copied_color, swatch_width, swatch_height)
+      else
+        output += render_button(hex, copied_color)
+      end
+      
+      output
+    end
+
+    private
+
+    def inject_script(context)
+      %{<script>
+if (typeof window.copyToClipboard === 'undefined') {
+  window.copyToClipboard = function(hex, element) {
+    navigator.clipboard.writeText(hex).then(() => {
+      const originalBg = element.style.backgroundColor;
+      const originalText = element.innerHTML;
+      const copiedColor = element.dataset.copiedColor || '#2BB3B1';
+      const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewBox="0 0 16 16" width="1em" height="1em" style="margin-right: 0.35em; vertical-align: -0.125em; fill: currentColor;"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 11-1.06-1.06L12.72 4.22a.75.75 0 011.06 0z"/><path fill-rule="evenodd" d="M7.03 11.03a.75.75 0 111.06-1.06l3.72 3.72a.75.75 0 11-1.06 1.06L7.03 11.03z" transform="rotate(90 8 8)"/></svg>';
+
+      element.style.backgroundColor = copiedColor;
+      if (element.tagName === 'BUTTON') {
+        element.textContent = ' Copied';
+        element.innerHTML = checkIcon + element.textContent;
+      } else if (element.classList.contains('color-copy-swatch')) {
+        element.innerHTML = checkIcon;
+      }
+
+      setTimeout(() => {
+        element.style.backgroundColor = originalBg;
+        element.innerHTML = originalText;
+      }, 1200);
+    }).catch(err => console.error('Copy failed:', err));
+  };
+}
+</script>}
     end
 
     private

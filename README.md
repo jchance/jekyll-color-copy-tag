@@ -23,11 +23,7 @@ plugins:
   - jekyll-color-copy-tag
 ```
 
-Add the JavaScript include near the end of your layout, just before `</body>`:
-
-```liquid
-{% include color_copy.js %}
-```
+That's it—the JavaScript is automatically injected into pages that use the tag.
 
 ## Usage
 

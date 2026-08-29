@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **CRITICAL:** Fixed `{% include color_copy.js %}` not being discoverable by Jekyll. The gem's `_includes` directory is now automatically registered with Jekyll's include search path via a post-reset hook. Users no longer need to manually copy the JS file into their site.
+- **CRITICAL:** JavaScript is now automatically injected into pages that use the tag. Removed dependency on `{% include color_copy.js %}` which required manual file copying. Users no longer need any setup beyond adding the gem to their Gemfile and `_config.yml`.
 
 ## [1.0.0] - 2026-08-29
 
