@@ -5,11 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2026-08-29
+
+### Added
+
+- Added `required_ruby_version >= 3.0` to gemspec
+
 ## [1.0.5] - 2026-08-29
 
 ### Fixed
 
 - **CRITICAL:** JavaScript is now automatically injected into pages that use the tag. Removed dependency on `{% include color_copy.js %}` which required manual file copying. Users no longer need any setup beyond adding the gem to their Gemfile and `_config.yml`.
+- Fixed checkmark SVG icon rendering in copy feedback
 
 ## [1.0.0] - 2026-08-29
 
