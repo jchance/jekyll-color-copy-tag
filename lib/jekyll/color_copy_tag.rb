@@ -74,7 +74,7 @@ if (typeof window.copyToClipboard === 'undefined') {
       const originalBg = element.style.backgroundColor;
       const originalText = element.innerHTML;
       const copiedColor = element.dataset.copiedColor || '#2BB3B1';
-      const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewBox="0 0 16 16" width="1em" height="1em" style="margin-right: 0.35em; vertical-align: -0.125em; fill: currentColor;"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 11-1.06-1.06L12.72 4.22a.75.75 0 011.06 0z"/><path fill-rule="evenodd" d="M7.03 11.03a.75.75 0 111.06-1.06l3.72 3.72a.75.75 0 11-1.06 1.06L7.03 11.03z" transform="rotate(90 8 8)"/></svg>';
+      const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewBox="0 0 16 16" width="1em" height="1em" style="margin-right: 0.35em; vertical-align: -0.125em; fill: currentColor;"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 11.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>';
 
       element.style.backgroundColor = copiedColor;
       if (element.tagName === 'BUTTON') {
