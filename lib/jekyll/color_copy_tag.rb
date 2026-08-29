@@ -12,7 +12,7 @@ require "liquid"
 # highest-contrast accessible label, with a subtle border on light swatches.
 
 module Jekyll
-  class ColorCopyTag < Liquid::Tag
+  class ColorCopyTagLiquid < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
       parts = markup.strip.split(/\s*,\s*/)
@@ -166,4 +166,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag('color_copy', Jekyll::ColorCopyTag)
+Liquid::Template.register_tag('color_copy', Jekyll::ColorCopyTagLiquid)
