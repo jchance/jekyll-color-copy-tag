@@ -1,0 +1,16 @@
+*.gem
+*.gemspec
+.bundle/
+vendor/bundle/
+.DS_Store
+*.swp
+*.swo
+*~
+.env
+.env.local
+pkg/
+dist/
+build/
+*.rbc
+.ruby-version
+.ruby-gemset
